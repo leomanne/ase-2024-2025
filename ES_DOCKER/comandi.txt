@@ -1,0 +1,29 @@
+# Costruisce un'immagine Docker dall'attuale Dockerfile.
+# - `sudo`: esegue il comando con privilegi amministrativi
+# - `docker build`: comando Docker per costruire un'immagine
+# - `-t prova`: assegna il nome 'prova' all'immagine
+# - `. `: indica la directory corrente come percorso del Dockerfile
+sudo docker build -t prova .
+
+# Lista le immagini Docker presenti nel sistema.
+# - `docker images`: comando per visualizzare tutte le immagini Docker
+sudo docker images
+
+# Esegue un container dall'immagine 'prova' esponendo la porta 5000.
+# - `docker run`: comando per eseguire un container
+# - `-p 5000:5000`: mappa la porta 5000 del sistema host alla porta 5000 del container
+# - `--name "prova"`: assegna al container il nome 'prova'
+# - `prova`: nome dell'immagine da cui avviare il container
+sudo docker run -p 5000:5000 --name "prova" prova
+
+# Crea un volume Docker chiamato 'volumediprova'.
+# - `docker volume create`: comando per creare un volume Docker persistente
+# - `volumediprova`: nome del volume da creare
+sudo docker volume create volumediprova
+
+# Esegue un container dall'immagine 'prova', montando il volume 'volumediprova' nella directory `/app`.
+# - `docker run`: esegue un container
+# - `-p 5000:5000`: mappa la porta 5000 dell'host alla porta 5000 del container
+# - `-v volumediprova:/app`: monta il volume 'volumediprova' alla directory `/app` nel container, rendendo persistenti i dati generati in `/app`
+# - `prova`: immagine Docker da eseguire
+sudo docker run -p 5000:5000 -v volumediprova:/app prova

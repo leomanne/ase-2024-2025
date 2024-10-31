@@ -1,0 +1,297 @@
+openapi: 3.0.0
+info:
+  title: Math and String Operations API
+  description: A REST API for performing basic math and string operations.
+  version: "1.0.0"
+
+paths:
+  /add:
+    get:
+      summary: Adds two numbers
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Sum of a and b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid input
+
+  /sub:
+    get:
+      summary: Subtracts two numbers
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Result of a - b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid input
+
+  /mul:
+    get:
+      summary: Multiplies two numbers
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Result of a * b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid input
+
+  /div:
+    get:
+      summary: Divides two numbers
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Result of a / b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid input or division by zero
+
+  /mod:
+    get:
+      summary: Modulus of two numbers
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Result of a % b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid input or division by zero
+
+  /upper:
+    get:
+      summary: Converts a string to uppercase
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Uppercased string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        '400':
+          description: Invalid input
+
+  /lower:
+    get:
+      summary: Converts a string to lowercase
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lowercased string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        '400':
+          description: Invalid input
+
+  /concat:
+    get:
+      summary: Concatenates two strings
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Concatenated string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        '400':
+          description: Invalid input
+
+  /reduce:
+    get:
+      summary: Reduces a list with a specified operator
+      parameters:
+        - name: op
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [add, sub, mul, div, concat]
+        - name: lst
+          in: query
+          required: true
+          schema:
+            type: string
+            description: JSON-encoded list of numbers or strings
+      responses:
+        '200':
+          description: Result of the reduction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+        '400':
+          description: Invalid input or division by zero
+
+  /random:
+    get:
+      summary: Generates a random number between a and b
+      parameters:
+        - name: a
+          in: query
+          required: true
+          schema:
+            type: number
+        - name: b
+          in: query
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Random number between a and b
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: number
+        '400':
+          description: Invalid range or input
+
+  /crash:
+    get:
+      summary: Terminates the service
+      responses:
+        '200':
+          description: Service terminated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  host:
+                    type: string
+        '500':
+          description: Internal server error
+
+  /last:
+    get:
+      summary: Returns the last successful operation
+      responses:
+        '200':
+          description: Last successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '404':
+          description: No operations performed
